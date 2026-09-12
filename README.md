@@ -1,4 +1,4 @@
-# UnifiedFlow
+# Event Normalizer
 
 ## Contents
 
@@ -14,18 +14,18 @@
 
 ## Overview
 
-UnifiedFlow provides a unified interface for ingesting and processing enterprise cost and usage events from different systems, including AI providers, cloud platforms, SaaS products, and internal services. Each source may represent usage differently. One provider may report `input_tokens`, another may use `prompt_tokens`, while a cloud platform may report compute time, storage, or network transfer.
+Event Normalizer provides a unified interface for ingesting and processing enterprise cost and usage events from different systems, including AI providers, cloud platforms, SaaS products, and internal services. Each source may represent usage differently. One provider may report `input_tokens`, another may use `prompt_tokens`, while a cloud platform may report compute time, storage, or network transfer.
 
 The main goal is to prevent upstream schema changes from causing failures across the cost-processing pipeline. When a known mapping exists, the event is processed using the deterministic mapping engine to achieve high throughput. When the event structure changes and no valid mapping exists, the event is sent to a schema-drift topic, where AI can propose a new mapping. AI-generated mappings are validated by the application before they are saved and used.
 
 ## Demo
 
-See the [UnifiedFlow demo](example_input/demo/demo.md) for the predefined-mapping and AI-assisted schema-drift workflows.
+See the [Event Normalizer demo](example_input/demo/demo.md) for the predefined-mapping and AI-assisted schema-drift workflows.
 
 ## Project structure
 
 ```text
-unifiedflow/
+Event Normalizer/
 ├── app/
 │   ├── main.py                         # FastAPI application and shared resources
 │   ├── config.py                       # Environment and JSON configuration
@@ -180,7 +180,7 @@ docker compose up -d
 docker compose ps
 ```
 
-Wait until both services are healthy. Then start each UnifiedFlow process in a separate terminal:
+Wait until both services are healthy. Then start each Event Normalizer process in a separate terminal:
 
 ```bash
 uvicorn app.main:app --reload
